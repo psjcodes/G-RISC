@@ -1,0 +1,8 @@
+LOOPi:
+    LOOPj:
+        MOV L1, L0
+        INC L1
+        INC L1
+        LDR R1, L0
+        LDR R2, L1
+        

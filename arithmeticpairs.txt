@@ -1,0 +1,32 @@
+# C0 = 256
+# C1 = 127
+# C2 = 0b1111
+
+
+LOOPi:
+    MOV L1, L0              # j = i
+    LOOPj:
+        INC L1
+        INC L1              # j = i + 2
+        LDR R1, L0          # A_high = data_mem[i]
+        LDR R2, L1          # B_high = data_mem[j]
+        
+        LOOPmask:
+            XOR R3, #0b11       # mask = 0000_0011
+            ASL R3, #0b11       # mask = 0000_1100
+            ASL R3, #0b11       # mask = 0011_1111
+            ASL R3, #0b11       # mask = 1111_1111
+        XOR R2, R3          # B_high = B_high XOR mask
+        INC R2              # B_high++, so now B_high is in 2s complement
+        ADD R1, R2          # A_high - B_high
+        AND R3, R1          # 
+
+
+ok so i need to load in the signed MSB parts A_high and B_high
+
+convert B_high to 2s complement by XORing with 1111 and adding 1
+
+then add A_high and 2s complement of B_high, this gives A_high - B_high
+
+now we need to take the absolute value of this difference. first lets check if its negative (MSB is 1)
+

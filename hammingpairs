@@ -1,0 +1,45 @@
+L2_RETURN:
+CMP L0, C0
+BEQ L1_RETURN
+    INC L0
+    INC L0
+    MOV L1, L0
+    DEC L0
+    DEC L0
+    CMP L1, C0
+    BEQ L2_RETURN
+        AND R0, #0b00
+        LDR R1, L0
+        LDR R2, L1
+        XOR R1, R2
+        AND L2, #0b00
+        CMP L2, C1
+        BEQ L3_FIRST
+            AND R3, #0b01
+            ADD R0, R3
+            ASR R1, #0b01
+        L3_FIRST:
+        AND L2, #0b00
+        INC L0
+        LDR R1, L0
+        DEC L0
+        INC L1
+        LDR R2, L1
+        DEC L1
+        XOR R1, R2
+        CMP L2, C1
+        BEQ L3_SECOND:
+            AND R3, #0b01
+            ADD R0, R3
+            ASR R1, #0b01
+        L3_SECOND:
+        LDR R3, C2
+        CMP R0, R3
+        BLT UPDATE_MAX_MIN
+        LDR R3, C3
+        CMP R3, R0
+        BLT UPDATE_MAX_MIN
+        UPDATE_MAX_MIN:
+            STR R3, R0
+L1_RETURN:
+    STR R3, R0

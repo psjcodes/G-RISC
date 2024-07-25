@@ -3,6 +3,7 @@
 using namespace std;
 
 static const size_t N = 9;
+static const size_t JLUT_SZ = 5;
 static const int REG_BITS = 2;
 
 namespace TYPE {
@@ -21,7 +22,7 @@ namespace OPCODE {
 };
 
 namespace FUNCT {
-    static constexpr bitset<N> ON = 0b10000, OFF = 0b00000;
+    static constexpr bitset<N> ON = 0b10000;
 };
 
 namespace REG {
@@ -32,5 +33,6 @@ unordered_map<string, bitset<N>> regsMap = {
     {"C0", REG::R0}, {"L0", REG::R0}, {"R0", REG::R0},
     {"C1", REG::R1}, {"L1", REG::R1}, {"R1", REG::R1},
     {"C2", REG::R2}, {"L2", REG::R2}, {"R2", REG::R2},
-    {"C3", REG::R3}, {"L3", REG::R3}, {"R3", REG::R3}
+    {"C3", REG::R3}, {"L3", REG::R3}, {"R3", REG::R3},
+    {"#0b00", REG::R0}, {"#0b01", REG::R1}
 };

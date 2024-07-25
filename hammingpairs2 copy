@@ -1,0 +1,46 @@
+    MOV L1, L0            
+        INC L1                      
+        INC L1                  
+        LDR R1, L0              
+        LDR R2, L1              
+        XOR R1, R2              
+        AND L2, #0b00            
+            MOV R3, R1          
+            AND R3, #0b01       
+            ADD R0, R3
+            ASR R1, #0b01          
+            INC L2              
+            CMP L2, C2          
+            BLT LOOPk_1
+        INC L0                  
+        INC L1                  
+        LDR R1, L0              
+        LDR R2, L1              
+        XOR R1, R2              
+        AND L2, #0b00           
+            MOV R3, R1          
+            AND R3, #0b01       
+            ADD R0, R3
+            ASR R1, #0b01          
+            INC L2              
+            CMP L2, C2          
+            BLT LOOPk_2
+        LDR R3, C1              
+        CMP R0, R3              
+        BLT UPDATE_MIN
+        LDR R3, C3              
+        CMP R3, R0              
+        BLT UPDATE_MAX
+            STR R0, C1          
+            AND R0, #0b00       
+            CMP R0, R0
+            BEQ NEXT_PAIR
+            STR R0, C3          
+            AND R0, #0b00       
+            CMP R0, R0
+            BEQ NEXT_PAIR
+            CMP L1, C1           
+            BLT LOOPj
+    INC L0                       
+    CMP L0, C0                   
+    BLT LOOPi
